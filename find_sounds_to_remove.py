@@ -17,6 +17,14 @@ class Sound:
         return "<Sound channel:%s filename:%s>" % (self.channel, self.filename)
 
 
+def find_sounds(code: str) -> list:
+    sound_regexp = 'sound *\( *(\/\*@CHANNELS\*\/)? *([a-zA-Z0-9_]*) *, "(.*)" *\) *;'
+    sounds = []
+    for (_, channel, filename) in re.findall(sound_regexp, code):
+        sounds.append(Sound(channel, filename))
+    return sounds
+
+
 def has_progression_code(code: str) -> bool:
     identifiers = ['use *\(.*\) *;', 'run *\(.*\) *;', 'move *\(.*\) *;',
                    'rotate *\(.*\) *;',
@@ -62,12 +70,8 @@ def parse_task(code: str) -> Task:
     index_task_code_end = index
 
     task_code = code[index_task_code_start:index_task_code_end]
+    sounds = find_sounds(task_code)
     task_has_progression_code = has_progression_code(task_code)
-
-    sound_regexp = 'sound *\( *(\/\*@CHANNELS\*\/)? *([a-zA-Z0-9_]*) *, "(.*)" *\) *;'
-    sounds = []
-    for (_, channel, filename) in re.findall(sound_regexp, task_code):
-        sounds.append(Sound(channel, filename))
     return Task(task_name, sounds, task_has_progression_code)
 
 
@@ -111,9 +115,23 @@ def get_tasks_with_sounds_to_remove(tasks_with_sounds: list,
     return tasks_with_sounds_to_remove
 
 
+def has_following_script_with_progression_code(filepath: str) -> bool:
+    script_names_with_next_script_with_progression = [
+        os.path.join('tutorial', 'tutorial_pt4.txt'),
+        os.path.join('voy1', 'warning.txt')]
+    return any([script_name in filepath for script_name in
+                script_names_with_next_script_with_progression])
+
+
 def find_sounds_to_remove(filepath: str) -> list:
     with open(filepath, 'r') as f:
         code = f.read()
+
+    if has_following_script_with_progression_code(filepath):
+        # early exit: if this script is followed directly by a script that is
+        # important for progression, we have to remove any sound, because the
+        # script execution will wait at the end of the script in any case
+        return [sound.filename for sound in find_sounds(code)]
 
     if not has_progression_code(code):
         # early exit: if there is no code for progression at all in this script,
