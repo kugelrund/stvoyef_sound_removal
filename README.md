@@ -6,22 +6,22 @@ pretty anticlimactic to play without sounds, an alternative is to delete only
 those specific sound files that influence progression of the game (see also
 [the speedrun.com page](https://www.speedrun.com/stvoyef)). These scripts are
 an attempt to automate the process of deleting these sound files from the
-game's `.pak` archives.
+game's `.pk3` archives.
 
 Python 3 is required to run these scripts.
 
 ## Removing Sounds
 
-To remove the sounds from the game's `.pak` files, run the `remove_sounds.py`
+To remove the sounds from the game's `.pk3` files, run the `remove_sounds.py`
 script. It takes the path to a text file with a list of sounds to remove as
-first command line argument and the path to the `.pak` files from which to
+first command line argument and the path to the `.pk3` files from which to
 remove the sounds as second argument. So the simplest way is to put the script
 `remove_sounds.py` together with a file `sounds_to_remove.txt` and the game's
-`.pak` files `pak0.pak`, `pak1.pak`, `pak2.pak` and `pak3.pak` next to each
+`.pk3` files `pak0.pk3`, `pak1.pk3`, `pak2.pk3` and `pak3.pk3` next to each
 other in one directory and run:
 
 ```bash
-$ python3 remove_sounds.py sounds_to_remove.txt *.pak
+$ python3 remove_sounds.py sounds_to_remove.txt *.pk3
 ```
 
 An appropriate `sounds_to_remove.txt` file can be downloaded from the

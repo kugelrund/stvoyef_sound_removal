@@ -14,7 +14,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('remove_list', type=str,
                         help="Path to file that lists sounds to remove.")
-    parser.add_argument('paks', type=str, help="paks to modify.")
+    parser.add_argument('paks', type=str, help=".pk3 files to modify.")
     args = parser.parse_args()
 
     with open(args.remove_list, 'r') as f:
