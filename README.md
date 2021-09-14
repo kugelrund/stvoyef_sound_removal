@@ -1,5 +1,15 @@
 # stvoyef_sound_removal
 
+By disabling audio output when speedrunning, Star Trek: Voyager - Elite Force
+dialogs are completely skipped which saves a lot of time. However as it is
+pretty anticlimactic to play without sounds, an alternative is to delete only
+those specific sound files that influence progression of the game (see also
+[the speedrun.com page](https://www.speedrun.com/stvoyef)). These scripts are
+an attempt to automate the process of deleting these sound files from the
+game's `.pak` archives.
+
+Python 3 is required to run these scripts.
+
 ## Removing Sounds
 
 To remove the sounds from the game's `.pak` files, run the `remove_sounds.py`
