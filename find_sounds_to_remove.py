@@ -159,17 +159,19 @@ def find_sounds_to_remove(filepath: str) -> list:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('real_scripts', type=str,
+    parser.add_argument('real_scripts_paths', type=str, nargs='*',
                         help="Path to the 'real_scripts' directory of the "
                              "original script files of the game "
-                             "Star Trek: Voyager - Elite Force.")
+                             "Star Trek: Voyager - Elite Force. Can provide "
+                             "multiple directories at once.")
     args = parser.parse_args()
 
     sounds_to_remove = set()
-    for subdir, _, files in os.walk(args.real_scripts):
-        for filename in files:
-            filepath = os.path.join(subdir, filename)
-            sounds_to_remove.update(find_sounds_to_remove(filepath))
+    for real_scripts_path in args.real_scripts_paths:
+        for subdir, _, files in os.walk(real_scripts_path):
+            for filename in files:
+                filepath = os.path.join(subdir, filename)
+                sounds_to_remove.update(find_sounds_to_remove(filepath))
     sounds_to_remove = sorted(list(sounds_to_remove))
     print(sounds_to_remove)
     print(len(sounds_to_remove))
