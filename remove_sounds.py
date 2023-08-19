@@ -28,7 +28,7 @@ def main():
     for pak in glob.glob(args.paks):
         # shells might be limited in number of arguments so lets do it in chunks
         for sounds_chunk in chunks(sounds_to_remove, 100):
-            cmd = ['zip', '-d', pak] + sounds_chunk
+            cmd = ['7z', 'd', '-ssc-', pak] + sounds_chunk
             subprocess.run(cmd)
 
 

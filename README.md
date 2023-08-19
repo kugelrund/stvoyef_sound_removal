@@ -29,6 +29,13 @@ An appropriate `sounds_to_remove.txt` file can be downloaded from the
 To generate the file yourself, perhaps with customizations, see the
 [next section](#find-sounds-to-remove).
 
+Note that the script expects a `7z` executable to be in path that provides the
+functionality of [7-Zip](https://www.7-zip.org/).
+On Windows, an easy way is to install
+[NanaZip](https://apps.microsoft.com/store/detail/nanazip/9N8G7TSCL18R) from
+the Microsoft Store.
+On Linux, simply install the appropriate `p7zip` package for your distribution.
+
 ## Find Sounds to Remove
 
 To generate the text file with a list of sounds to remove you will need to
